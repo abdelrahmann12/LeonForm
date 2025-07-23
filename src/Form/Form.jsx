@@ -4,21 +4,45 @@ import "./Form.css"
 import Model from './Model'
 
 export default function Form() {
+    const[errorMessage , setErrorMessage] = useState("")
+    const [showModel , setShowModel] = useState(false)
     const [formObject , setFormObject] = useState(
-        [{name:"" ,
+        {name:"" ,
          phonenumer: "",
          Age :"",
          isEmployee : false ,
-         salary : ""}]
+         salary : ""}
     )
     function  handleFormSubmit(e){
       e.preventDefault();
-      alert("Dfdfdf");
+      // to remove error message that saved before to not show again
+      setErrorMessage("")
+      const {Age , phonenumer ,} = formObject
+      if(Age <18 || Age > 100){
+        setErrorMessage("age is not valid");
+      }
+      if(phonenumer.length >12 || phonenumer.length < 10){
+        setErrorMessage("phone number is not valid");
+      }
+     
+      
+      setShowModel(true)
+    }
+
+    function handleShowModel(){
+      // without if statement model will not show
+      if(showModel == true){
+        setShowModel(false)
+      }
+      
+      
     }
     
     const btnIsDisbled = formObject.name == "" || formObject.Age =="" ||formObject.phonenumer =="";
   return (
-    <div className='parent'>
+    <div
+     onClick={handleShowModel}
+     className='parent'>
       <form action="" onSubmit={(e)=>{
         e.preventDefault();
       }}>
@@ -65,7 +89,7 @@ export default function Form() {
         
       </form>
 
-      {/* <Model></Model> */}
+      <Model errorMessage={errorMessage} isVisible={showModel}></Model>
     </div>
 
     

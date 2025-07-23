@@ -45,7 +45,7 @@ form{
     }
     
     .disabled{
-        background-color: gray !important;
+        background: gray !important;
     }
     
     hr{
